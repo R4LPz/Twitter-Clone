@@ -6,7 +6,7 @@ const sessionRouter = require('./sessionRouter')
 const router = Router()
 
 router.use('/user', userRouter)
-//router.use('/tweet', tweetRouter)
-//router.use('/session', sessionRouter)
+router.use('/tweet', tweetRouter)
+router.use('/session', sessionRouter)
 
 module.exports = router

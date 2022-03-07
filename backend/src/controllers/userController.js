@@ -1,5 +1,4 @@
 const bcrypt = require('bcryptjs')
-const { findById } = require('../models/user')
 const User = require("../models/user")
 
 module.exports = {
@@ -49,5 +48,19 @@ module.exports = {
         await user.delete()
         
         return res.status(200).send({"Status": "Ok", "UserId": user._id})
+    },
+
+    async edit(req,res){
+        const {name, description, profile_image} = req.body
+        const {username} = req.params
+
+        const user = await User.findOne({username})
+
+        user.name = name ? name : user.name
+        user.description = description ? description : user.description
+        user.profile_image = profile_image ? profile_image : user.profile_image
+
+        user.save()
+        return res.status(200).send(user)
     }
 }

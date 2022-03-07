@@ -12,7 +12,8 @@ const Tweet = new mongoose.Schema({
         max: 400
     },
     image: {
-        type: String
+        type: String,
+        default: ""
     },
     likes: {
         type: mongoose.Schema.Types.ObjectId,

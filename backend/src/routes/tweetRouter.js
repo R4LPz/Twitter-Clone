@@ -1,11 +1,14 @@
-// const { Router } = require('express')
+const { Router } = require('express')
+const tweetController = require('../controllers/tweetController')
+const authentication = require('../middlewares/authentication')
 
 
-// const router = Router()
+const router = Router()
 
-// router.post('/', tweetController.create)
-// router.get('/:id', tweetController.findById)
-// router.delete('/:id', tweetController.delete)
-// router.put('/:id', tweetController.edit)
+router.use(authentication)
+router.post('/', tweetController.create)
+router.get('/:id', tweetController.searchById)
+router.delete('/:id', tweetController.delete)
+router.patch('/:id', tweetController.edit)
 
-// module.exports = router
+module.exports = router
