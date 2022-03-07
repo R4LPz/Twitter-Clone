@@ -51,5 +51,26 @@ module.exports = {
 
         return res.status(200).send(tweet)
         
+    },
+    async like(req,res){
+        const { id } = req.params
+        const userId = req.user
+        
+        const tweet = await Tweet.findOne({_id: id})
+
+        if(!tweet)
+            return res.status(404).send({error: "Tweet not found"})
+        
+        const tweetLiked = tweet.likes.some(like => like == userId)
+
+        if(tweetLiked){
+            tweet.likes = tweet.likes.filter(like => like != userId)
+        }else{
+            tweet.likes.push(userId)
+        }
+
+        tweet.save()
+
+        return res.status(200).send(tweet)
     }
 }

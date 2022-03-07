@@ -22,15 +22,15 @@ Este projeto se trata da concepção de uma aplicação que apresente funcionali
 
 Para um modelo mínimo, o software deve entregar tanto na API, quanto no front, as seguintes funcionalidades:
 
-- [ ]  CRUD em usuarios
-- [ ]  Autenticação via JWT
-- [ ]  Sistema de login e proteção de rotas
-- [ ]  Atualização senha via email
-- [ ]  CRUD em tweets
-- [ ]  Curtir um tweet
+- [x]  CRUD em usuarios
+- [x]  Autenticação via JWT
+- [x]  Sistema de login e proteção de rotas
+- [x]  CRUD em tweets
+- [x]  Curtir um tweet
 
 ## Futuras melhorias <a name="id04"></a>
 
+- [ ]  Atualização senha via email
 - [ ]  Retweetar um tweet
 - [ ]  Comentar um tweet
 - [ ]  Seguir um usuário

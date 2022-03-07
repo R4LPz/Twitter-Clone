@@ -10,5 +10,6 @@ router.post('/', tweetController.create)
 router.get('/:id', tweetController.searchById)
 router.delete('/:id', tweetController.delete)
 router.patch('/:id', tweetController.edit)
+router.patch('/:id/like', tweetController.like)
 
 module.exports = router
