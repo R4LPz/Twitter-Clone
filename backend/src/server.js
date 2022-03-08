@@ -1,23 +1,18 @@
-const express = require('express')
-const mongoose = require('mongoose')
-const morgan = require('morgan')
-require('dotenv').config()
+require('./database/database');
+require('dotenv').config();
+const express = require('express');
+const morgan = require('morgan');
+const router = require('./routes');
+const authentication = require('./middlewares/authentication');
 
-const router = require('./routes/routes')
-const authentication = require('./middlewares/authentication')
 
-const app = express()
-const port = process.env.PORT || 3000
+const app = express();
 
-app.use(express.json())
-app.use(morgan("common"))
-app.use(router)
-app.use(authentication)
+app.use(express.json());
+app.use(morgan('common'));
+app.use(router);
+app.use(authentication);
 
-mongoose.connect(process.env.DB_URL, ()=>{
-    console.log(`💾 Connected to the database`)  
-})
-
-app.listen(port, ()=>{
-    console.log(`🔥 Server is Running on port ${port}`) 
-})
+app.listen(process.env.PORT, ()=>{
+	console.log(`🔥 Server is Running on port ${process.env.PORT}`); 
+});

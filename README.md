@@ -34,3 +34,4 @@ Para um modelo mínimo, o software deve entregar tanto na API, quanto no front, 
 - [ ]  Retweetar um tweet
 - [ ]  Comentar um tweet
 - [ ]  Seguir um usuário
+- [ ]  Envio de imagem de perfil e capa

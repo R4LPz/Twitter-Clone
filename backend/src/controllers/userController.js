@@ -1,66 +1,82 @@
-const bcrypt = require('bcryptjs')
-const User = require("../models/user")
+const bcrypt = require('bcryptjs');
+const User = require('../models/user');
+
 
 module.exports = {
-    async create(req, res){
-        const {email, password, name, username, description, profile_image} = req.body
+	async create(req, res) {
+		const {email, password, name, username, description, profile_image} = req.body;
 
-        if(!email || !password || !username)
-            return res.status(400).send({"Error": "Invalid data"})
-        
-        const userExists = await User.findOne({$or: [{username}, {email}]})
+		if (!email || !password || !username) {
+			return res.status(400).send({Error: 'Invalid data'});
+		}
 
-        if(userExists)
-            return res.status(400).send({"Error": "User already exists"})
-        
-        const salt = await bcrypt.genSalt(10)
-        const encriptedPassword = await bcrypt.hash(password,salt)
+		const userExists = await User.findOne({$or: [{username}, {email}]});
 
-        const user = await User.create({
-            email,
-            password: encriptedPassword,
-            name: name ? name : username,
-            username,
-            description,
-            profile_image
-        })
-        return res.status(200).send({"User": user})
-    },
+		if (userExists) {
+			return res.status(400).send({Error: 'User already exists'});
+		}
 
-    async searchByUsername(req,res){
-        const { username } = req.params
+		const salt = await bcrypt.genSalt(10);
+		const encriptedPassword = await bcrypt.hash(password, salt);
 
-        const user = await User.findOne({username})
+		const user = await User.create({
+			email,
+			password: encriptedPassword,
+			name: name ? name : username,
+			username,
+			description,
+			profile_image,
+		});
+		return res.status(200).send({User: user});
+	},
 
-        return user 
-        ? res.status(200).send(user) 
-        : res.status(404).send({"Error" : "User not found"})
-    },
+	async searchByUsername(req, res) {
+		const {username} = req.params;
 
-    async delete(req,res){
-        const {username} = req.params
+		const user = await User.findOne({username});
 
-        const user = await User.findOne({username})
+		return user ?
+			res.status(200).send(user) :
+			res.status(404).send({Error: 'User not found'});
+	},
 
-        if(!user)
-            return res.status(400).send({"Error": "User not found"})
-        
-        await user.delete()
-        
-        return res.status(200).send({"Status": "Ok", "UserId": user._id})
-    },
+	async delete(req, res) {
+		const {username} = req.params;
+		const userId = req.user;
+	
+		const user = await User.findOne({username});
 
-    async edit(req,res){
-        const {name, description, profile_image} = req.body
-        const {username} = req.params
+		if (!user) {
+			return res.status(400).send({Error: 'User not found'});
+		}
+		if (userId != user.id) {
+			return res.status(403).send({Error: 'Forbiden operation'});
+		}
 
-        const user = await User.findOne({username})
+		await user.delete();
 
-        user.name = name ? name : user.name
-        user.description = description ? description : user.description
-        user.profile_image = profile_image ? profile_image : user.profile_image
+		return res.status(200).send({UserId : user.id});
+	},
 
-        user.save()
-        return res.status(200).send(user)
-    }
-}
+	async edit(req, res) {
+		const {name, description, profile_image} = req.body;
+		const userId = req.user;
+		const {username} = req.params;
+
+		const user = await User.findOne({username});
+
+		if (!user) {
+			return res.status(400).send({Error: 'User not found'});
+		}
+		if (userId != user.id) {
+			return res.status(403).send({Error: 'Forbiden operation'});
+		}
+
+		user.name = name ? name : user.name;
+		user.description = description ? description : user.description;
+		user.profile_image = profile_image ? profile_image : user.profile_image;
+
+		user.save();
+		return res.status(200).send(user);
+	},
+};

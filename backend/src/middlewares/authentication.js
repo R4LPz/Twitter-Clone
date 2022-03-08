@@ -1,29 +1,29 @@
-const jwt = require('jsonwebtoken')
+const jwt = require('jsonwebtoken');
 
-async function validateToken(req,res, next){
-    const token = req.headers.authorization
+async function validateToken(req, res, next) {
+	const token = req.headers.authorization;
 
-    if(!token)
-        return res.status(400).send({error: "Acess Denied"})
+	if (!token) {
+		return res.status(401).send({ error: 'Acess Denied' }); 
+	}
 
-    const parts = token.split(" ")
+	const tokenSplited = token.split(' ');
 
-    if(!parts.lenght === 2)
-        return res.status(400).send({error: "Invalid Token"})
-    
-    const [schema, hash] = parts
+	if (tokenSplited.length !== 2) { 
+		return res.status(401).send({ error: 'Invalid Token' }); 
+	}
 
-    if(schema !== "Bearer")
-        return res.status(400).send({error: "Invalid Token"})
-    
-    jwt.verify(hash, process.env.JWT_SECRET, (err, decoded)=>{
-        if(err)
-            return res.status(401).send({error: "Invalid Token"})
-        
-        req.user = decoded._id
-        next()
-    })
+	const [schema, hash] = tokenSplited;
 
+	if (schema !== 'Bearer') { return res.status(401).send({ error: 'Invalid Token' }); }
+
+	jwt.verify(hash, process.env.JWT_SECRET, (err, verifiedToken) => {
+		if (err) {
+			return res.status(401).send({ error: 'Validation error' }); 
+		}
+		req.user = verifiedToken.id;
+		next();
+	});
 }
 
-module.exports = validateToken
+module.exports = validateToken;
