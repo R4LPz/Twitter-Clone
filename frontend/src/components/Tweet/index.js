@@ -8,7 +8,7 @@ export default function Tweet(props) {
 
             <div>
                 <span>{props.likes.length}</span>
-                <button>Like</button>
+                <button onClick={()=>props.onLike(props.tweetId)}>Like</button>
             </div>
         </div>
     )

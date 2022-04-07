@@ -55,7 +55,7 @@ module.exports = {
 		const {id} = req.params;
 		const userId = req.user;
 		
-		const tweet = await Tweet.findOne({_id: id});
+		const tweet = await Tweet.findOne({_id: id}).populate('author');
 
 		if (!tweet) {
 			return res.status(404).send({error: 'Tweet not found'});

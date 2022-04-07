@@ -15,6 +15,7 @@ export default function TweetList(props) {
                             author={tweet.author}
                             text={tweet.text} 
                             likes={tweet.likes} 
+                            onLike={props.onLike}
                         />
                     ))
                 }                
