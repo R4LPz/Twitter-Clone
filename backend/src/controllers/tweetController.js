@@ -72,4 +72,13 @@ module.exports = {
 		tweet.save();
 		return res.status(200).send(tweet);
 	},
+
+	async searchAll(req,res){
+
+		const tweet = await Tweet.find().populate('author');
+		
+		return tweet ?
+			res.status(200).send(tweet) :
+			res.status(404).send({Error: 'Tweet not found'});
+	}
 };

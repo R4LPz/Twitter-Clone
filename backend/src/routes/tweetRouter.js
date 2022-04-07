@@ -7,6 +7,7 @@ const router = Router();
 
 router.use(authentication);
 router.post('/', tweetController.create);
+router.get('/', tweetController.searchAll);
 router.get('/:id', tweetController.searchById);
 router.delete('/:id', tweetController.delete);
 router.patch('/:id', tweetController.edit);

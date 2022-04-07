@@ -30,10 +30,10 @@ module.exports = {
 		return res.status(200).send({User: user});
 	},
 
-	async searchByUsername(req, res) {
-		const {username} = req.params;
+	async searchById(req, res) {
+		const {id} = req.params;
 
-		const user = await User.findOne({username});
+		const user = await User.findOne({id});
 
 		return user ?
 			res.status(200).send(user) :
