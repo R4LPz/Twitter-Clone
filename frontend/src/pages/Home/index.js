@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 
 import TweetForm from "../../components/TweetForm";
 import TweetList from "../../components/TweetList";
+import { Container } from "./styles";
 
 export default function Home(){
 
@@ -15,7 +16,7 @@ export default function Home(){
             const tweetResponse = await axios.get("http://localhost:5000/tweet", {headers: { "authorization": `Bearer ${token}`}})
                         
             
-                const tweetUsers = tweetResponse.data.map(tweet =>{
+                const tweetUsers = tweetResponse.data.reverse().map(tweet =>{
                     return tweet 
                 })
                 setTweets(tweetUsers);
@@ -41,9 +42,9 @@ export default function Home(){
     }
 
     return(
-        <div>
+        <Container>
           <TweetForm/>
           <TweetList tweets={tweets}  onLike={handleLike}/>
-        </div>
+        </Container>
     )
 }

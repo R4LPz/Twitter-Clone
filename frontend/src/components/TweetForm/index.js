@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import axios from 'axios';
+import { Button, Container, TweetText, Title } from "./styles";
+import twitterLogo from "../../assets/logo.svg"
 
 export default function TweetForm() {
 
@@ -20,18 +22,21 @@ export default function TweetForm() {
     }
 
     return(
-        <div>
-            <div>
-                <textarea 
-                    required
-                    value={text}
-                    onChange={e => setText(e.target.value)}
-                    placeholder="O que você está pensando" rows={4}
-                />
-            </div>
-            <div>
-                <button onClick={handleTweet}>Enviar</button>
-            </div>
-        </div>
+        <Container>
+            <Title href="/home">
+                <img src={twitterLogo} alt="" />
+                Página inicial
+            </Title>
+            <TweetText 
+                required
+                value={text}
+                onChange={e => setText(e.target.value)}
+                placeholder="O que você está pensando" 
+                rows={4}
+            />
+            <Button>
+                <button onClick={handleTweet}>Tweetar</button>
+            </Button>
+        </Container>
     )
 }

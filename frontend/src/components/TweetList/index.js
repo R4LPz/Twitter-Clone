@@ -1,10 +1,11 @@
 import React from "react";
 import Tweet from "../Tweet";
+import { Container } from "./styles";
 
 export default function TweetList(props) {    
 
     return (
-        <div>
+        <Container>
             <ul>
                 {
                     props.tweets.map((tweet)=>(
@@ -20,6 +21,6 @@ export default function TweetList(props) {
                     ))
                 }                
             </ul>
-        </div>
+        </Container>
     )
 } 

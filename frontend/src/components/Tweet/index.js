@@ -1,15 +1,20 @@
+import { Author, Container, Actions } from "./styles";
+import like from "../../assets/like.svg"
 export default function Tweet(props) {
 
 
     return (
-        <div>
-            <span>{props.author.name}</span>
+        <Container>
+            <Author>{props.author.name}</Author>
             <p>{props.text}</p>
 
-            <div>
-                <span>{props.likes.length}</span>
-                <button onClick={()=>props.onLike(props.tweetId)}>Like</button>
-            </div>
-        </div>
+            <Actions>
+                
+                <button onClick={()=>props.onLike(props.tweetId)}>
+                    <img src={like} alt="" />
+                    <span>{props.likes.length}</span>
+                </button>
+            </Actions>
+        </Container>
     )
 }
