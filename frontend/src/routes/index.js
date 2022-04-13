@@ -1,4 +1,5 @@
 import React from "react";
+import AuthRoute from "./AuthRoute";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import Login from "../pages/Login";
@@ -11,7 +12,13 @@ export default function Router(){
             <Routes>
                 <Route path="/" exact element={<Login/>}/>
                 <Route path="/register" element={<Register/>}/>
-                <Route path="/home" element={<Home/>}/>
+                <Route 
+                path="/home" 
+                element={
+                    <AuthRoute>
+                        <Home/>
+                    </AuthRoute>
+                }/>
             </Routes>   
         </BrowserRouter>
     )
