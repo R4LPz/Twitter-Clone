@@ -1,16 +1,17 @@
 const { Router } = require('express');
-const tweetController = require('../controllers/tweetController');
+
 const authentication = require('../middlewares/authentication');
+const Tweet = require('../controllers/tweetController');
 
 
 const router = Router();
 
 router.use(authentication);
-router.post('/', tweetController.create);
-router.get('/', tweetController.searchAll);
-router.get('/:id', tweetController.searchById);
-router.delete('/:id', tweetController.delete);
-router.patch('/:id', tweetController.edit);
-router.patch('/:id/like', tweetController.like);
+router.post('/', Tweet.create);
+router.get('/', Tweet.searchAll);
+router.get('/:id', Tweet.searchById);
+router.delete('/:id', Tweet.delete);
+router.patch('/:id', Tweet.edit);
+router.patch('/:id/like', Tweet.like);
 
 module.exports = router;

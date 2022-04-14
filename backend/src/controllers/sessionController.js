@@ -1,10 +1,13 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+
 const User = require('../models/user');
 
 
 module.exports = {
+
 	async create(req, res) {
+		
 		const { email, password } = req.body;
 
 		if (!email || !password) 
@@ -21,7 +24,6 @@ module.exports = {
 			return res.status(400).send({ error: 'Email or Password is wrong' });
 
 		const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, { expiresIn: 86400 });
-
 		return res.status(200).send({ user: user.id, token });
 	},
 };
